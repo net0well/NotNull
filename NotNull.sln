@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotNull.AppHost", "NotNull.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotNull.ServiceDefaults", "NotNull.ServiceDefaults\NotNull.ServiceDefaults.csproj", "{596E9405-A862-451E-8A17-CCD949287D6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{2A535D43-DDE4-413C-A6F4-CDEF51A5ED0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionService", "QuestionService\QuestionService.csproj", "{4A14AD85-727B-4A5F-9637-12C41F24EA6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,12 @@ Global
 		{596E9405-A862-451E-8A17-CCD949287D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{596E9405-A862-451E-8A17-CCD949287D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{596E9405-A862-451E-8A17-CCD949287D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A14AD85-727B-4A5F-9637-12C41F24EA6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A14AD85-727B-4A5F-9637-12C41F24EA6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A14AD85-727B-4A5F-9637-12C41F24EA6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A14AD85-727B-4A5F-9637-12C41F24EA6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4A14AD85-727B-4A5F-9637-12C41F24EA6F} = {2A535D43-DDE4-413C-A6F4-CDEF51A5ED0E}
 	EndGlobalSection
 EndGlobal
