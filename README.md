@@ -4,7 +4,7 @@
 
 <p>
   <strong>Uma plataforma moderna inspirada no Stack Overflow</strong><br/>
-  Construída para demonstrar <em>arquiteturas distribuídas reais</em> com o melhor do ecossistema <b>.NET</b> e <b>JavaScript</b>.
+  Construída para demonstrar <em>arquiteturas distribuídas reais</em> com o melhor do ecossistema <b>.NET</b> e <b>React com Next</b>.
 </p>
 
 <img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" />
