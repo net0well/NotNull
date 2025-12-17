@@ -1,108 +1,134 @@
 <div align="center">
-
 <h1>🚀 @NotNull</h1>
-
 <p>
-  <strong>Uma plataforma moderna inspirada no Stack Overflow</strong><br/>
-  Construída para demonstrar <em>arquiteturas distribuídas reais</em> com o melhor do ecossistema <b>.NET</b> e <b>React com Next</b>.
+  <strong>A modern platform inspired by Stack Overflow</strong><br/>
+  Built to demonstrate <em>real-world distributed architectures</em> with the best of <b>.NET</b> and <b>React with Next.js</b>.
 </p>
-
 <img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" />
 <img src="https://img.shields.io/badge/Next.js-App%20Router-000000?style=for-the-badge&logo=nextdotjs" />
 <img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql" />
 <img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker" />
 <img src="https://img.shields.io/badge/Keycloak-Auth-2C2C2C?style=for-the-badge&logo=keycloak" />
-
 <br/><br/>
-
 </div>
 
 ---
 
-## 📌 Visão Geral
+## 📌 Overview
 
-**@NotNull** é uma aplicação full stack moderna, inspirada no **Stack Overflow**, desenvolvida do zero com foco em:
+**@NotNull** is a modern full-stack application inspired by **Stack Overflow**, built from scratch with a focus on:
 
-- 🧩 **Microserviços**
-- 📡 **Mensageria orientada a eventos**
-- 🔐 **Segurança e autenticação**
-- 📈 **Escalabilidade e observabilidade**
-- 🏗️ **Boas práticas de arquitetura**
+- 🧩 **Microservices architecture**
+- 📡 **Event-driven messaging**
+- 🔐 **Security and authentication**
+- 📈 **Scalability and observability**
+- 🏗️ **Architectural best practices**
 
-O projeto serve como **referência prática** para construção de sistemas distribuídos reais, prontos para **execução local ou deploy em cloud**.
+The project serves as a **practical reference** for building real-world distributed systems, ready for **local execution or cloud deployment**.
 
 ---
 
-## 🧠 Arquitetura
+## 🧠 Architecture
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
 
 <div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>🧩 Microserviços</h3>
-<p>Serviços independentes, desacoplados e escaláveis.</p>
+<h3>🧩 Microservices</h3>
+<p>Independent, decoupled, and scalable services.</p>
 </div>
 
 <div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
 <h3>📨 Event-Driven</h3>
-<p>Comunicação assíncrona baseada em eventos.</p>
+<p>Asynchronous communication based on events.</p>
 </div>
 
 <div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>🔐 Segurança</h3>
-<p>OAuth2 / OpenID Connect com Keycloak.</p>
+<h3>🔐 Security</h3>
+<p>OAuth2 / OpenID Connect with Keycloak.</p>
 </div>
 
 <div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>📊 Observabilidade</h3>
-<p>Logs, métricas e tracing com .NET Aspire.</p>
+<h3>📊 Observability</h3>
+<p>Logs, metrics, and tracing with .NET Aspire.</p>
 </div>
 
 </div>
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tech Stack
 
 ### 🔧 Backend
 
-<ul>
-  <li><b>.NET 9</b> – Plataforma principal</li>
-  <li><b>.NET Aspire</b> – Orquestração e observabilidade</li>
-  <li><b>WolverineFx</b> – Mensageria e arquitetura orientada a eventos</li>
-  <li><b>PostgreSQL</b> – Banco de dados relacional</li>
-  <li><b>Docker</b> – Execução e orquestração local</li>
-</ul>
+- **.NET 9** – Core platform
+- **.NET Aspire** – Orchestration and observability
+- **WolverineFx** – Messaging and event-driven architecture
+- **PostgreSQL** – Relational database
+- **Docker** – Local execution and orchestration
 
 ---
 
 ### 🎨 Frontend
 
-<ul>
-  <li><b>Next.js</b> (App Router)</li>
-  <li><b>Tailwind CSS</b> – Estilização moderna e responsiva</li>
-  <li><b>Zustand</b> – Gerenciamento de estado simples e eficiente</li>
-</ul>
+- **Next.js** (App Router)
+- **Tailwind CSS** – Modern and responsive styling
+- **Zustand** – Simple and efficient state management
 
 ---
 
-### 🔐 Autenticação e Segurança
+### 🔐 Authentication & Security
 
-<ul>
-  <li><b>Keycloak</b></li>
-  <li>OAuth2 / OpenID Connect</li>
-  <li>Separação clara entre autenticação e domínio</li>
-</ul>
+- **Keycloak**
+- OAuth2 / OpenID Connect
+- Clear separation between authentication and domain logic
 
 ---
 
-## 🚀 Executando o Projeto Localmente
-
+## 🚀 Running the Project Locally
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/notnull.git
+# Clone the repository
+git clone https://github.com/net0well/notnull.git
 
-# Suba a infraestrutura
+# Start the infrastructure
 docker compose up -d
 
-# Inicie a aplicação com o Aspire
+# Launch the application with Aspire
 dotnet run
+```
+
+
+
+## 🎯 Key Features
+
+✅ **Microservices-based architecture** with clear domain boundaries  
+✅ **Event-driven communication** using WolverineFx  
+✅ **OAuth2/OIDC authentication** with Keycloak  
+✅ **Built-in observability** with .NET Aspire  
+✅ **Modern React frontend** with Next.js App Router  
+✅ **Containerized deployment** with Docker  
+✅ **Production-ready patterns** and best practices
+
+---
+
+## 📖 Documentation
+
+For detailed documentation on architecture, patterns, and deployment strategies, visit our [Wiki](https://github.com/net0well/notnull/wiki).
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting pull requests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+<p>Built with ❤️ using .NET 9, Aspire, Next.js, WolverineFx, and PostgreSQL</p>
+<p>⭐ Star this repo if you find it useful!</p>
+</div>
