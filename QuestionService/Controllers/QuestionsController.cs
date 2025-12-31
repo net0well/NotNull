@@ -17,11 +17,11 @@ public class QuestionsController(QuestionDbContext dbContext) : ControllerBase
     public async Task<ActionResult<Question>> CreateQuestion(CreateQuestionDto dto)
     {
         var validTags = await dbContext.Tags.Where(x => dto.Tags.Contains(x.Slug)).ToListAsync();
-        
+
         var missing = dto.Tags.Except(validTags.Select(tag => tag.Slug).ToList()).ToList();
-        
-        if(missing.Count() != 0) return BadRequest($"Invalid  tags: {string.Join(", ", missing)}");
-        
+
+        if (missing.Count() != 0) return BadRequest($"Invalid  tags: {string.Join(", ", missing)}");
+
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var name = User.FindFirstValue("name");
 
@@ -38,7 +38,7 @@ public class QuestionsController(QuestionDbContext dbContext) : ControllerBase
 
         dbContext.Questions.Add(question);
         await dbContext.SaveChangesAsync();
-        
+
         return Created($"/questions/{question.Id}", question);
     }
 
@@ -49,9 +49,9 @@ public class QuestionsController(QuestionDbContext dbContext) : ControllerBase
 
         if (!string.IsNullOrEmpty(tag))
         {
-            query = query.Where(x => x.TagSlugs.Contains(tag)); 
+            query = query.Where(x => x.TagSlugs.Contains(tag));
         }
-        
+
         return await query.OrderByDescending(x => x.CreatedAt).ToListAsync();
     }
 
@@ -70,5 +70,45 @@ public class QuestionsController(QuestionDbContext dbContext) : ControllerBase
 
         return question;
     }
-    
+
+    [Authorize]
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateQuestion(string id, CreateQuestionDto dto)
+    {
+        var question = await dbContext.Questions.FindAsync(id);
+        if (question is null) return NotFound();
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId != question.AskerId) return Forbid();
+        
+        var validTags = await dbContext.Tags.Where(x => dto.Tags.Contains(x.Slug)).ToListAsync();
+
+        var missing = dto.Tags.Except(validTags.Select(tag => tag.Slug).ToList()).ToList();
+
+        if (missing.Count() != 0) return BadRequest($"Invalid  tags: {string.Join(", ", missing)}");
+
+        question.Title = dto.Title;
+        question.Content = dto.Content;
+        question.TagSlugs = dto.Tags;
+        question.UpdatedAt = DateTime.UtcNow;
+
+        await dbContext.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteQuestion(string id)
+    {
+        var question = await dbContext.Questions.FindAsync(id);
+        if (question is null) return NotFound();
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId != question.AskerId) return Forbid();
+        
+        dbContext.Questions.Remove(question);
+        await dbContext.SaveChangesAsync();
+        return NoContent();
+    }
 }
+    
