@@ -1,134 +1,182 @@
 <div align="center">
-<h1>🚀 @NotNull</h1>
+  <h1>@NotNull</h1>
+
+  <p>
+    <strong>A modern, cloud-ready Q&A platform inspired by Stack Overflow</strong><br/>
+    Designed to demonstrate real-world distributed systems, event-driven communication,
+    and production-grade architecture using .NET and React with Next.js.
+  </p>
+
+  <img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" />
+  <img src="https://img.shields.io/badge/Next.js-App%20Router-000000?style=for-the-badge&logo=nextdotjs" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql" />
+  <img src="https://img.shields.io/badge/RabbitMQ-Messaging-FF6600?style=for-the-badge&logo=rabbitmq" />
+  <img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker" />
+  <img src="https://img.shields.io/badge/Keycloak-Auth-2C2C2C?style=for-the-badge&logo=keycloak" />
+  <img src="https://img.shields.io/badge/NGINX-Reverse%20Proxy-009639?style=for-the-badge&logo=nginx" />
+</div>
+
+<hr/>
+
+<h2>Overview</h2>
+
 <p>
-  <strong>A modern platform inspired by Stack Overflow</strong><br/>
-  Built to demonstrate <em>real-world distributed architectures</em> with the best of <b>.NET</b> and <b>React with Next.js</b>.
+  <strong>@NotNull</strong> is a full-stack, distributed Q&amp;A platform inspired by
+  <strong>Stack Overflow</strong>, built from the ground up to showcase how modern backend
+  and frontend architectures are designed, deployed, and scaled in real production environments.
 </p>
-<img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" />
-<img src="https://img.shields.io/badge/Next.js-App%20Router-000000?style=for-the-badge&logo=nextdotjs" />
-<img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql" />
-<img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker" />
-<img src="https://img.shields.io/badge/Keycloak-Auth-2C2C2C?style=for-the-badge&logo=keycloak" />
-<br/><br/>
-</div>
 
----
+<p>
+  The project serves as both a learning reference and a production-grade architectural
+  showcase, focusing on modularity, scalability, security, and cloud-native practices.
+</p>
 
-## 📌 Overview
+<hr/>
 
-**@NotNull** is a modern full-stack application inspired by **Stack Overflow**, built from scratch with a focus on:
+<h2>Architecture</h2>
 
-- 🧩 **Microservices architecture**
-- 📡 **Event-driven messaging**
-- 🔐 **Security and authentication**
-- 📈 **Scalability and observability**
-- 🏗️ **Architectural best practices**
+<h3>Microservices</h3>
+<ul>
+  <li>Independently deployable services</li>
+  <li>Clear domain boundaries</li>
+  <li>HTTP-based communication combined with asynchronous events</li>
+</ul>
 
-The project serves as a **practical reference** for building real-world distributed systems, ready for **local execution or cloud deployment**.
+<h3>Event-Driven Communication</h3>
+<ul>
+  <li>WolverineFx used as the internal messaging and workflow engine</li>
+  <li>RabbitMQ as the message broker</li>
+  <li>Loose coupling, fault tolerance, and horizontal scalability</li>
+</ul>
 
----
+<h3>API Gateway and Reverse Proxy</h3>
+<ul>
+  <li>YARP used as an internal reverse proxy and API Gateway</li>
+  <li>NGINX used as the external HTTPS reverse proxy in production</li>
+  <li>Centralized routing, SSL termination, and service isolation</li>
+</ul>
 
-## 🧠 Architecture
+<h3>Security and Identity</h3>
+<ul>
+  <li>Keycloak running in Docker</li>
+  <li>OAuth2 and OpenID Connect</li>
+  <li>Authentication fully decoupled from business logic</li>
+</ul>
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+<h3>Observability (Development Only)</h3>
+<ul>
+  <li>.NET Aspire used exclusively in development</li>
+  <li>Service discovery, metrics, logs, and traces</li>
+  <li>Removed from production to keep the runtime lean and explicit</li>
+</ul>
 
-<div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>🧩 Microservices</h3>
-<p>Independent, decoupled, and scalable services.</p>
-</div>
+<hr/>
 
-<div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>📨 Event-Driven</h3>
-<p>Asynchronous communication based on events.</p>
-</div>
+<h2>Technology Stack</h2>
 
-<div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>🔐 Security</h3>
-<p>OAuth2 / OpenID Connect with Keycloak.</p>
-</div>
+<h3>Backend</h3>
+<ul>
+  <li>.NET 9</li>
+  <li>WolverineFx (Messaging and event-driven workflows)</li>
+  <li>RabbitMQ</li>
+  <li>PostgreSQL</li>
+  <li>YARP (Reverse proxy / API Gateway)</li>
+  <li>Docker (Development and production)</li>
+</ul>
 
-<div style="border:1px solid #e5e7eb; padding:16px; border-radius:8px;">
-<h3>📊 Observability</h3>
-<p>Logs, metrics, and tracing with .NET Aspire.</p>
-</div>
+<h3>Frontend</h3>
+<ul>
+  <li>React with Next.js (App Router)</li>
+  <li>HeroUI</li>
+  <li>Tailwind CSS</li>
+  <li>Zustand (State management)</li>
+</ul>
 
-</div>
+<h3>Authentication and Security</h3>
+<ul>
+  <li>Keycloak (Dockerized)</li>
+  <li>OAuth2 / OpenID Connect</li>
+  <li>JWT-based authentication</li>
+</ul>
 
----
+<hr/>
 
-## 🛠️ Tech Stack
+<h2>Deployment</h2>
 
-### 🔧 Backend
+<p>
+  The application is fully containerized and designed to be cloud-agnostic.
+</p>
 
-- **.NET 9** – Core platform
-- **.NET Aspire** – Orchestration and observability
-- **WolverineFx** – Messaging and event-driven architecture
-- **PostgreSQL** – Relational database
-- **Docker** – Local execution and orchestration
+<h3>Production Environments</h3>
+<ul>
+  <li>DigitalOcean (Linux server)</li>
+  <li>Microsoft Azure</li>
+  <li>NGINX as HTTPS reverse proxy</li>
+  <li>Docker-based deployment strategy</li>
+</ul>
 
----
+<h3>Development Environment</h3>
+<ul>
+  <li>Docker Compose for infrastructure</li>
+  <li>.NET Aspire for local orchestration and observability</li>
+</ul>
 
-### 🎨 Frontend
+<hr/>
 
-- **Next.js** (App Router)
-- **Tailwind CSS** – Modern and responsive styling
-- **Zustand** – Simple and efficient state management
+<h2>Running Locally</h2>
 
----
-
-### 🔐 Authentication & Security
-
-- **Keycloak**
-- OAuth2 / OpenID Connect
-- Clear separation between authentication and domain logic
-
----
-
-## 🚀 Running the Project Locally
-```bash
-# Clone the repository
+<pre>
+<code>
 git clone https://github.com/net0well/notnull.git
-
-# Start the infrastructure
 docker compose up -d
-
-# Launch the application with Aspire
 dotnet run
-```
+</code>
+</pre>
 
+<hr/>
 
+<h2>Key Features</h2>
+<ul>
+  <li>Microservices-oriented architecture with clear domain boundaries</li>
+  <li>Event-driven communication using WolverineFx and RabbitMQ</li>
+  <li>Centralized authentication with Keycloak</li>
+  <li>Reverse proxy and API Gateway using YARP</li>
+  <li>Production-ready HTTPS setup with NGINX</li>
+  <li>Modern React frontend with Next.js App Router</li>
+  <li>Containerized deployment for local and cloud environments</li>
+</ul>
 
-## 🎯 Key Features
+<hr/>
 
-✅ **Microservices-based architecture** with clear domain boundaries  
-✅ **Event-driven communication** using WolverineFx  
-✅ **OAuth2/OIDC authentication** with Keycloak  
-✅ **Built-in observability** with .NET Aspire  
-✅ **Modern React frontend** with Next.js App Router  
-✅ **Containerized deployment** with Docker  
-✅ **Production-ready patterns** and best practices
+<h2>Documentation</h2>
 
----
+<p>
+  Detailed documentation covering architecture decisions, messaging patterns,
+  security, and deployment strategies is available in the
+  <a href="https://github.com/net0well/notnull/wiki">project Wiki</a>.
+</p>
 
-## 📖 Documentation
+<hr/>
 
-For detailed documentation on architecture, patterns, and deployment strategies, visit our [Wiki](https://github.com/net0well/notnull/wiki).
+<h2>Contributing</h2>
 
----
+<p>
+  Contributions are welcome. Please read the
+  <a href="CONTRIBUTING.md">Contributing Guide</a> before submitting pull requests.
+</p>
 
-## 🤝 Contributing
+<hr/>
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting pull requests.
+<h2>License</h2>
 
----
+<p>
+  This project is licensed under the MIT License. See the
+  <a href="LICENSE">LICENSE</a> file for details.
+</p>
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+<hr/>
 
 <div align="center">
-<p>Built with ❤️ using .NET 9, Aspire, Next.js, WolverineFx, and PostgreSQL</p>
-<p>⭐ Star this repo if you find it useful!</p>
+  <p>Built with .NET 9, WolverineFx, RabbitMQ, Next.js, and PostgreSQL</p>
+  <p>If you find this project useful, consider giving it a star.</p>
 </div>
