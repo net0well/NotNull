@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionService", "Question
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService", "SearchService\SearchService.csproj", "{2823273D-06EF-4614-8495-717BD14EDC89}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{FFBDC724-719A-442F-BAD7-512457EA004C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,9 +36,14 @@ Global
 		{2823273D-06EF-4614-8495-717BD14EDC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2823273D-06EF-4614-8495-717BD14EDC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2823273D-06EF-4614-8495-717BD14EDC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4A14AD85-727B-4A5F-9637-12C41F24EA6F} = {2A535D43-DDE4-413C-A6F4-CDEF51A5ED0E}
 		{2823273D-06EF-4614-8495-717BD14EDC89} = {2A535D43-DDE4-413C-A6F4-CDEF51A5ED0E}
+		{364D6BD6-3A3E-485C-B7DC-FB7ECD43162A} = {FFBDC724-719A-442F-BAD7-512457EA004C}
 	EndGlobalSection
 EndGlobal
