@@ -92,6 +92,9 @@ public class QuestionsController(QuestionDbContext dbContext, IMessageBus bus, T
         question.UpdatedAt = DateTime.UtcNow;
 
         await dbContext.SaveChangesAsync();
+        
+        await bus.PublishAsync(new QuestionUpdated(question.Id, question.Title, question.Content, question.TagSlugs.ToArray()));
+        
         return NoContent();
     }
 
@@ -107,6 +110,9 @@ public class QuestionsController(QuestionDbContext dbContext, IMessageBus bus, T
         
         dbContext.Questions.Remove(question);
         await dbContext.SaveChangesAsync();
+
+        await bus.PublishAsync(new QuestionDeleted(question.Id));
+        
         return NoContent();
     }
 }
