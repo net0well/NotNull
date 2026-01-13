@@ -1,182 +1,158 @@
 <div align="center">
   <h1>@NotNull</h1>
-
+  
   <p>
-    <strong>A modern, cloud-ready Q&A platform inspired by Stack Overflow</strong><br/>
+    <strong>A modern, cloud-ready Q&A platform inspired by Stack Overflow</strong>
+  </p>
+  <p>
     Designed to demonstrate real-world distributed systems, event-driven communication,
     and production-grade architecture using .NET and React with Next.js.
   </p>
 
-  <img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" />
-  <img src="https://img.shields.io/badge/Next.js-App%20Router-000000?style=for-the-badge&logo=nextdotjs" />
-  <img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql" />
-  <img src="https://img.shields.io/badge/RabbitMQ-Messaging-FF6600?style=for-the-badge&logo=rabbitmq" />
-  <img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker" />
-  <img src="https://img.shields.io/badge/Keycloak-Auth-2C2C2C?style=for-the-badge&logo=keycloak" />
-  <img src="https://img.shields.io/badge/NGINX-Reverse%20Proxy-009639?style=for-the-badge&logo=nginx" />
+  <p>
+    <img src="https://img.shields.io/badge/.NET-9-512BD4?style=for-the-badge&logo=dotnet" alt=".NET 9" />
+    <img src="https://img.shields.io/badge/Next.js-App%20Router-000000?style=for-the-badge&logo=nextdotjs" alt="Next.js" />
+    <img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/RabbitMQ-Messaging-FF6600?style=for-the-badge&logo=rabbitmq" alt="RabbitMQ" />
+    <img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker" alt="Docker" />
+    <img src="https://img.shields.io/badge/Keycloak-Auth-2C2C2C?style=for-the-badge&logo=keycloak" alt="Keycloak" />
+    <img src="https://img.shields.io/badge/NGINX-Reverse%20Proxy-009639?style=for-the-badge&logo=nginx" alt="NGINX" />
+    <img src="https://img.shields.io/badge/Typesense-Search-D93F0B?style=for-the-badge&logo=typesense" alt="Typesense" />
+  </p>
 </div>
 
-<hr/>
+---
 
-<h2>Overview</h2>
+## Overview
 
-<p>
-  <strong>@NotNull</strong> is a full-stack, distributed Q&amp;A platform inspired by
-  <strong>Stack Overflow</strong>, built from the ground up to showcase how modern backend
-  and frontend architectures are designed, deployed, and scaled in real production environments.
-</p>
+**@NotNull** is a full-stack, distributed Q&A platform inspired by **Stack Overflow**, built from the ground up to showcase how modern backend and frontend architectures are designed, deployed, and scaled in real production environments.
 
-<p>
-  The project serves as both a learning reference and a production-grade architectural
-  showcase, focusing on modularity, scalability, security, and cloud-native practices.
-</p>
+The project serves as both a learning reference and a production-grade architectural showcase, focusing on modularity, scalability, security, and cloud-native practices.
 
-<hr/>
+---
 
-<h2>Architecture</h2>
+## Architecture
 
-<h3>Microservices</h3>
-<ul>
-  <li>Independently deployable services</li>
-  <li>Clear domain boundaries</li>
-  <li>HTTP-based communication combined with asynchronous events</li>
-</ul>
+### Microservices
+- Independently deployable services
+- Clear domain boundaries
+- HTTP-based communication combined with asynchronous events
 
-<h3>Event-Driven Communication</h3>
-<ul>
-  <li>WolverineFx used as the internal messaging and workflow engine</li>
-  <li>RabbitMQ as the message broker</li>
-  <li>Loose coupling, fault tolerance, and horizontal scalability</li>
-</ul>
+### Event-Driven Communication
+- **WolverineFx** used as the internal messaging and workflow engine
+- **RabbitMQ** as the message broker
+- Loose coupling, fault tolerance, and horizontal scalability
 
-<h3>API Gateway and Reverse Proxy</h3>
-<ul>
-  <li>YARP used as an internal reverse proxy and API Gateway</li>
-  <li>NGINX used as the external HTTPS reverse proxy in production</li>
-  <li>Centralized routing, SSL termination, and service isolation</li>
-</ul>
+### API Gateway and Reverse Proxy
+- **YARP** used as an internal reverse proxy and API Gateway
+- **NGINX Proxy Manager** used as the external HTTPS reverse proxy in production
+- Centralized routing, SSL termination, and service isolation
 
-<h3>Security and Identity</h3>
-<ul>
-  <li>Keycloak running in Docker</li>
-  <li>OAuth2 and OpenID Connect</li>
-  <li>Authentication fully decoupled from business logic</li>
-</ul>
+### Search Infrastructure
+- **Typesense** for fast, typo-tolerant search
+- Real-time indexing of questions and answers
+- Faceted search and filtering capabilities
 
-<h3>Observability (Development Only)</h3>
-<ul>
-  <li>.NET Aspire used exclusively in development</li>
-  <li>Service discovery, metrics, logs, and traces</li>
-  <li>Removed from production to keep the runtime lean and explicit</li>
-</ul>
+### Security and Identity
+- **Keycloak** running in Docker
+- OAuth2 and OpenID Connect
+- Authentication fully decoupled from business logic
 
-<hr/>
+### Observability (Development Only)
+- **.NET Aspire** used exclusively in development
+- Service discovery, metrics, logs, and traces
+- Removed from production to keep the runtime lean and explicit
 
-<h2>Technology Stack</h2>
+---
 
-<h3>Backend</h3>
-<ul>
-  <li>.NET 9</li>
-  <li>WolverineFx (Messaging and event-driven workflows)</li>
-  <li>RabbitMQ</li>
-  <li>PostgreSQL</li>
-  <li>YARP (Reverse proxy / API Gateway)</li>
-  <li>Docker (Development and production)</li>
-</ul>
+## Technology Stack
 
-<h3>Frontend</h3>
-<ul>
-  <li>React with Next.js (App Router)</li>
-  <li>HeroUI</li>
-  <li>Tailwind CSS</li>
-  <li>Zustand (State management)</li>
-</ul>
+### Backend
+- **.NET 9**
+- **WolverineFx** (Messaging and event-driven workflows)
+- **RabbitMQ**
+- **PostgreSQL**
+- **Typesense** (Search engine)
+- **YARP** (Reverse proxy / API Gateway)
+- **Docker** (Development and production)
 
-<h3>Authentication and Security</h3>
-<ul>
-  <li>Keycloak (Dockerized)</li>
-  <li>OAuth2 / OpenID Connect</li>
-  <li>JWT-based authentication</li>
-</ul>
+### Frontend
+- **React** with **Next.js** (App Router)
+- **HeroUI**
+- **Tailwind CSS**
+- **Zustand** (State management)
 
-<hr/>
+### Authentication and Security
+- **Keycloak** (Dockerized)
+- **OAuth2 / OpenID Connect**
+- **JWT-based authentication**
 
-<h2>Deployment</h2>
+### Infrastructure
+- **NGINX Proxy Manager** (HTTPS reverse proxy)
+- **Docker** and **Docker Compose**
+- Cloud-agnostic deployment
 
-<p>
-  The application is fully containerized and designed to be cloud-agnostic.
-</p>
+---
 
-<h3>Production Environments</h3>
-<ul>
-  <li>DigitalOcean (Linux server)</li>
-  <li>Microsoft Azure</li>
-  <li>NGINX as HTTPS reverse proxy</li>
-  <li>Docker-based deployment strategy</li>
-</ul>
+## Deployment
 
-<h3>Development Environment</h3>
-<ul>
-  <li>Docker Compose for infrastructure</li>
-  <li>.NET Aspire for local orchestration and observability</li>
-</ul>
+The application is fully containerized and designed to be cloud-agnostic.
 
-<hr/>
+### Production Environments
+- **DigitalOcean** (Linux server)
+- **Microsoft Azure**
+- **NGINX Proxy Manager** as HTTPS reverse proxy
+- Docker-based deployment strategy
 
-<h2>Running Locally</h2>
+### Development Environment
+- **Docker Compose** for infrastructure
+- **.NET Aspire** for local orchestration and observability
 
-<pre>
-<code>
+---
+
+## Running Locally
+
+```bash
 git clone https://github.com/net0well/notnull.git
+cd notnull
 docker compose up -d
 dotnet run
-</code>
-</pre>
+```
 
-<hr/>
+---
 
-<h2>Key Features</h2>
-<ul>
-  <li>Microservices-oriented architecture with clear domain boundaries</li>
-  <li>Event-driven communication using WolverineFx and RabbitMQ</li>
-  <li>Centralized authentication with Keycloak</li>
-  <li>Reverse proxy and API Gateway using YARP</li>
-  <li>Production-ready HTTPS setup with NGINX</li>
-  <li>Modern React frontend with Next.js App Router</li>
-  <li>Containerized deployment for local and cloud environments</li>
-</ul>
+## Key Features
 
-<hr/>
+- **Microservices-oriented architecture** with clear domain boundaries
+- **Event-driven communication** using WolverineFx and RabbitMQ
+- **Fast, typo-tolerant search** powered by Typesense
+- **Centralized authentication** with Keycloak
+- **Reverse proxy and API Gateway** using YARP
+- **Production-ready HTTPS setup** with NGINX Proxy Manager
+- **Modern React frontend** with Next.js App Router
+- **Containerized deployment** for local and cloud environments
 
-<h2>Documentation</h2>
+---
 
-<p>
-  Detailed documentation covering architecture decisions, messaging patterns,
-  security, and deployment strategies is available in the
-  <a href="https://github.com/net0well/notnull/wiki">project Wiki</a>.
-</p>
+## Documentation
 
-<hr/>
+Detailed documentation covering architecture decisions, messaging patterns, security, and deployment strategies is available in the [project Wiki](https://github.com/net0well/notnull/wiki).
 
-<h2>Contributing</h2>
+---
 
-<p>
-  Contributions are welcome. Please read the
-  <a href="CONTRIBUTING.md">Contributing Guide</a> before submitting pull requests.
-</p>
+## Contributing
 
-<hr/>
+Contributions are welcome! Please read the [Contributing Guide](CONTRIBUTING.md) before submitting pull requests.
 
-<h2>License</h2>
+---
 
-<p>
-  This project is licensed under the MIT License. See the
-  <a href="LICENSE">LICENSE</a> file for details.
-</p>
+## License
 
-<hr/>
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
 
 <div align="center">
-  <p>Built with .NET 9, WolverineFx, RabbitMQ, Next.js, and PostgreSQL</p>
-  <p>If you find this project useful, consider giving it a star.</p>
+  <p><strong>Built with .NET 9, WolverineFx, RabbitMQ, Typesense, Next.js, and PostgreSQL</strong></p>
+  <p>⭐ If you find this project useful, consider giving it a star!</p>
 </div>
