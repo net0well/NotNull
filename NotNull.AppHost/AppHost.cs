@@ -1,4 +1,9 @@
+using Microsoft.Extensions.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
+
+var compose = builder.AddDockerComposeEnvironment("production")
+    .WithDashboard(dash => dash.WithHostPort(8080));
 
 var keycloak = builder.AddKeycloak("keycloak", 6001)
     .WithDataVolume("keycloak-data");
@@ -10,8 +15,10 @@ var postgres = builder.AddPostgres("postgres", port: 5432)
 var typesenseApiKey = builder.AddParameter("typesense-api-key", secret: true);
 
 var typesense = builder.AddContainer("typesense", "typesense/typesense", "29.0")
-    .WithArgs("--data-dir", "/data", "--api-key", typesenseApiKey, "--enable-cors")
     .WithVolume("typesense-data", "/data")
+    .WithEnvironment("TYPESENSE_DATA_DIR", "/data")
+    .WithEnvironment("TYPESENSE_ENABLE_CORS", "true")
+    .WithEnvironment("TYPESENSE_API_KEY", typesenseApiKey)
     .WithHttpEndpoint(8108, 8108, name: "typesense");
 
 var typesenseContainer = typesense.GetEndpoint("typesense");
@@ -36,5 +43,14 @@ var searchService = builder.AddProject<Projects.SearchService>("search-svc")
     .WithReference(rabbitmq)
     .WaitFor(typesense)
     .WaitFor(rabbitmq);
+
+var yarp = builder.AddYarp("gateway")
+    .WithHostPort(8001)
+    .WithConfiguration(yarpBuilder =>
+    {
+        yarpBuilder.AddRoute("/questions/{**catch-all}", questionService);
+        yarpBuilder.AddRoute("/tags/{**catch-all}", questionService);
+        yarpBuilder.AddRoute("/search/{**catch-all}", searchService);
+    });
 
 builder.Build().Run();
