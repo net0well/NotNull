@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
@@ -6,7 +7,10 @@ var compose = builder.AddDockerComposeEnvironment("production")
     .WithDashboard(dash => dash.WithHostPort(8080));
 
 var keycloak = builder.AddKeycloak("keycloak", 6001)
-    .WithDataVolume("keycloak-data");
+    .WithDataVolume("keycloak-data")
+    .WithEnvironment("KC_HTTP_ENABLED", "true")
+    .WithEnvironment("KC_HOSTNAME_STRICT", "false")
+    .WithEndpoint(6001, 8080, "keycloack", isExternal: true);
 
 var postgres = builder.AddPostgres("postgres", port: 5432)
     .WithDataVolume("postgres-data")

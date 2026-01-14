@@ -18,6 +18,10 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
       KC_BOOTSTRAP_ADMIN_PASSWORD: "${KEYCLOAK_PASSWORD}"
       KC_HEALTH_ENABLED: "true"
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+    ports:
+      - "6001:8080"
     expose:
       - "8080"
       - "9000"
@@ -86,6 +90,8 @@ services:
       services__keycloak__http__0: "http://keycloak:8080"
       KEYCLOAK_MANAGEMENT: "http://keycloak:9000"
       services__keycloak__management__0: "http://keycloak:9000"
+      KEYCLOAK_KEYCLOACK: "keycloack://keycloak:8080"
+      services__keycloak__keycloack__0: "keycloack://keycloak:8080"
       ConnectionStrings__questiondb: "Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=questiondb"
       QUESTIONDB_HOST: "postgres"
       QUESTIONDB_PORT: "5432"
