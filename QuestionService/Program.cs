@@ -1,8 +1,12 @@
+using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Polly;
 using QuestionService.Data;
 using QuestionService.Services;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 using Wolverine;
 using Wolverine.RabbitMQ;
 
@@ -34,11 +38,36 @@ builder.Services.AddOpenTelemetry().WithTracing(providerBuilder =>
         .AddSource("Wolverine");
 });
 
+var retryPolicy = Policy
+    .Handle<BrokerUnreachableException>()
+    .Or<SocketException>()
+    .WaitAndRetryAsync(
+        retryCount: 5,
+        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
+            (exception, timeSpan, retryCount) =>
+        {
+            Console.WriteLine($"Retry attempt {retryCount}, retrying in {timeSpan}.");
+        });
+
+await retryPolicy.ExecuteAsync(async () =>
+{
+    var endpoint = builder.Configuration.GetConnectionString("rabbitmq")
+        ?? throw new InvalidOperationException("messaging connection string not found");
+
+    var factory = new ConnectionFactory
+    {
+        Uri = new Uri(endpoint)
+    };
+    
+    await using var connection = await factory.CreateConnectionAsync();
+});
+
 builder.Host.UseWolverine(options =>
 {
     options.UseRabbitMqUsingNamedConnection("rabbitmq").AutoProvision();
     options.PublishAllMessages().ToRabbitExchange("questions");
 });
+
 
 var app = builder.Build();
 
