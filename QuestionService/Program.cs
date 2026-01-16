@@ -1,8 +1,13 @@
+using System.Net.Sockets;
+using Commom;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Polly;
 using QuestionService.Data;
 using QuestionService.Services;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 using Wolverine;
 using Wolverine.RabbitMQ;
 
@@ -18,27 +23,16 @@ builder.AddServiceDefaults();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<TagService>();
 
-builder.Services.AddAuthentication()
-    .AddKeycloakJwtBearer(serviceName: "keycloak", realm: "notnull", options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.Audience = "notnull";
-    });
+builder.Services.AddKeycloakAuthentication();
 
 builder.AddNpgsqlDbContext<QuestionDbContext>("questionDb");
 
-builder.Services.AddOpenTelemetry().WithTracing(providerBuilder =>
+await builder.UseWolverineWithRabbitMqAsync(opts =>
 {
-    providerBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault()
-            .AddService(builder.Environment.ApplicationName))
-        .AddSource("Wolverine");
+    opts.PublishAllMessages().ToRabbitExchange("questions");
+    opts.ApplicationAssembly = typeof(Program).Assembly;
 });
 
-builder.Host.UseWolverine(options =>
-{
-    options.UseRabbitMqUsingNamedConnection("rabbitmq").AutoProvision();
-    options.PublishAllMessages().ToRabbitExchange("questions");
-});
 
 var app = builder.Build();
 
