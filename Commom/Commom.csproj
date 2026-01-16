@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Polly" Version="8.6.5" />
+      <PackageReference Include="WolverineFx.RabbitMQ" Version="5.10.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NotNull.ServiceDefaults\NotNull.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>

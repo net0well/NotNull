@@ -1,4 +1,5 @@
 using System.Net.Sockets;
+using Commom;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -31,41 +32,10 @@ builder.Services.AddAuthentication()
 
 builder.AddNpgsqlDbContext<QuestionDbContext>("questionDb");
 
-builder.Services.AddOpenTelemetry().WithTracing(providerBuilder =>
+await builder.UseWolverineWithRabbitMqAsync(opts =>
 {
-    providerBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault()
-            .AddService(builder.Environment.ApplicationName))
-        .AddSource("Wolverine");
-});
-
-var retryPolicy = Policy
-    .Handle<BrokerUnreachableException>()
-    .Or<SocketException>()
-    .WaitAndRetryAsync(
-        retryCount: 5,
-        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
-            (exception, timeSpan, retryCount) =>
-        {
-            Console.WriteLine($"Retry attempt {retryCount}, retrying in {timeSpan}.");
-        });
-
-await retryPolicy.ExecuteAsync(async () =>
-{
-    var endpoint = builder.Configuration.GetConnectionString("rabbitmq")
-        ?? throw new InvalidOperationException("messaging connection string not found");
-
-    var factory = new ConnectionFactory
-    {
-        Uri = new Uri(endpoint)
-    };
-    
-    await using var connection = await factory.CreateConnectionAsync();
-});
-
-builder.Host.UseWolverine(options =>
-{
-    options.UseRabbitMqUsingNamedConnection("rabbitmq").AutoProvision();
-    options.PublishAllMessages().ToRabbitExchange("questions");
+    opts.PublishAllMessages().ToRabbitExchange("questions");
+    opts.ApplicationAssembly = typeof(Program).Assembly;
 });
 
 
