@@ -19,7 +19,8 @@ public static class AuthExtensions
                     ValidIssuers = [
                         "http://localhost:6001/realms/notnull",
                         "http://keycloak/realms/notnull",
-                        "http://id.notnull.local:6001/realms/notnull"
+                        "http://id.notnull.local:6001/realms/notnull",
+                        "http://id.notnull.local/realms/notnull"
                     ]
                 };
             });

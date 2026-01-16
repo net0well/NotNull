@@ -11,7 +11,9 @@ var keycloak = builder.AddKeycloak("keycloak", 6001)
     .WithRealmImport("../infra/realms")
     .WithEnvironment("KC_HTTP_ENABLED", "true")
     .WithEnvironment("KC_HOSTNAME_STRICT", "false")
-    .WithEndpoint(6001, 8080, "keycloack", isExternal: true);
+    .WithEndpoint(6001, 8080, "keycloack", isExternal: true)
+    .WithEnvironment("VIRTUAL_HOST", "id.notnull.local")
+    .WithEnvironment("VIRTUAL_PORT", "8080");
 
 var postgres = builder.AddPostgres("postgres", port: 5432)
     .WithDataVolume("postgres-data")
@@ -60,7 +62,17 @@ var yarp = builder.AddYarp("gateway")
     })
     .WithEnvironment("ASPNETCORE_URLS", "http://*:8001")
     .WithEndpoint(port: 8001, scheme: "http", targetPort: 8001, name: "gateway", isExternal: true)
+    .WithEnvironment("VIRTUAL_HOST", "api.notnull.local")
+    .WithEnvironment("VIRTUAL_PORT", "8001")
     .WaitFor(questionService)
     .WaitFor(searchService);
+
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.AddContainer("nginx-proxy", "nginxproxy/nginx-proxy", "1.8")
+        .WithEndpoint(80, 80, "nginx", isExternal: true)
+        .WithBindMount("/var/run/docker.sock", "/tmp/docker.sock", true);
+}
 
 builder.Build().Run();
