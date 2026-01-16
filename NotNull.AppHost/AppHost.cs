@@ -50,12 +50,17 @@ var searchService = builder.AddProject<Projects.SearchService>("search-svc")
     .WaitFor(rabbitmq);
 
 var yarp = builder.AddYarp("gateway")
-    .WithHostPort(8001)
+    .WithReference(questionService)
+    .WithReference(searchService)
     .WithConfiguration(yarpBuilder =>
     {
         yarpBuilder.AddRoute("/questions/{**catch-all}", questionService);
         yarpBuilder.AddRoute("/tags/{**catch-all}", questionService);
         yarpBuilder.AddRoute("/search/{**catch-all}", searchService);
-    });
+    })
+    .WithEnvironment("ASPNETCORE_URLS", "http://*:8001")
+    .WithEndpoint(port: 8001, scheme: "http", targetPort: 8001, name: "gateway", isExternal: true)
+    .WaitFor(questionService)
+    .WaitFor(searchService);
 
 builder.Build().Run();

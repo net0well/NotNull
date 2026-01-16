@@ -175,11 +175,19 @@ services:
       SEARCH_SVC_HTTP: "http://search-svc:${SEARCH_SVC_PORT}"
       services__search-svc__http__0: "http://search-svc:${SEARCH_SVC_PORT}"
       SEARCH_SVC_HTTPS: "https://search-svc:${SEARCH_SVC_PORT}"
+      ASPNETCORE_URLS: "http://*:8001"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://production-dashboard:18889"
       OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
       OTEL_SERVICE_NAME: "gateway"
+    ports:
+      - "8001:8001"
     expose:
       - "5000"
+    depends_on:
+      question-svc:
+        condition: "service_started"
+      search-svc:
+        condition: "service_started"
     networks:
       - "aspire"
 networks:
