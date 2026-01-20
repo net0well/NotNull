@@ -13,9 +13,7 @@ type Props = {
 
 export default function QuestionCard({question}: Props) {
     return (
-        <div className='flex gap-6 px-6 py-5 w-full hover:bg-default-50 transition-colors rounded-lg border-b border-default-200'>
-            {/* Stats sidebar */}
-            <div className='flex flex-col items-end gap-3 text-sm min-w-[6rem]'>
+        <div className='flex gap-6 px-6 py-5 w-full hover:bg-default-50 dark:hover:bg-default-200/20 transition-colors rounded-lg border-b border-default-200'>            <div className='flex flex-col items-end gap-3 text-sm min-w-[6rem]'>
                 <div className='flex flex-col items-center gap-1 px-3 py-2 rounded-md bg-default-100'>
                     <span className='font-semibold text-default-700'>{question.votes}</span>
                     <span className='text-xs text-default-500'>{question.votes === 1 ? 'vote' : 'votes'}</span>
