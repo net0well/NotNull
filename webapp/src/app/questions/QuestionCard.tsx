@@ -13,57 +13,81 @@ type Props = {
 
 export default function QuestionCard({question}: Props) {
     return (
-        <div className='flex gap-6 px-6 w-full'>
-            <div className='flex flex-col items-end gap-4 text-sm font-light min-w-[6rem]'>
-                <div>{question.votes} {question.votes === 1 ? 'vote' : 'votes'}</div>
+        <div className='flex gap-6 px-6 py-5 w-full hover:bg-default-50 transition-colors rounded-lg border-b border-default-200'>
+            {/* Stats sidebar */}
+            <div className='flex flex-col items-end gap-3 text-sm min-w-[6rem]'>
+                <div className='flex flex-col items-center gap-1 px-3 py-2 rounded-md bg-default-100'>
+                    <span className='font-semibold text-default-700'>{question.votes}</span>
+                    <span className='text-xs text-default-500'>{question.votes === 1 ? 'vote' : 'votes'}</span>
+                </div>
+
                 <div
-                    className={clsx('flex justify-end rounded', {
-                        'border-2 border-success': question.answerCount > 0,
-                        'bg-success-600 text-default-50': question.hasAcceptedAnswer
+                    className={clsx('flex flex-col items-center gap-1 px-3 py-2 rounded-md transition-all', {
+                        'bg-success-50 border border-success-200': question.answerCount > 0 && !question.hasAcceptedAnswer,
+                        'bg-success-500 text-white shadow-md': question.hasAcceptedAnswer,
+                        'bg-default-100': question.answerCount === 0
                     })}
                 >
-                        <span className={clsx('flex items-center gap-2', {
-                            'p-1': question.answerCount > 0
-                        })}>
-                            {question.hasAcceptedAnswer &&
-                                <CheckIcon className="h-4 w-4" strokeWidth={4}/>}
-                            {question.answerCount} {question.answerCount === 1 ? 'answer' : 'answers'}
-                        </span>
+                    <div className='flex items-center gap-1'>
+                        {question.hasAcceptedAnswer && (
+                            <CheckIcon className="h-4 w-4" strokeWidth={3}/>
+                        )}
+                        <span className='font-semibold'>{question.answerCount}</span>
+                    </div>
+                    <span className='text-xs'>{question.answerCount === 1 ? 'answer' : 'answers'}</span>
                 </div>
-                <div>{question.viewCount} {question.viewCount === 1 ? 'view' : 'views'}</div>
-            </div>
-            <div className='flex flex-1 justify-between min-h-32'>
-                <div className='flex flex-col gap-2 w-full'>
-                    <Link
-                        href={`/questions/${question.id}`}
-                        className='text-primary font-semibold hover:underline first-letter:uppercase'
-                    >
-                        {question.title}
-                    </Link>
-                    <div
-                        className='line-clamp-2'
-                        dangerouslySetInnerHTML={{__html: question.content}}
-                    />
-                    <div className='flex justify-between pt-2'>
-                        <div className='flex gap-2'>
-                            {question.tagSlugs.map(tag => (
-                                <Chip key={tag} variant='bordered' as={Link} href={`/questions?tag=${tag}`}>
-                                    {tag}
-                                </Chip>
-                            ))}
-                        </div>
 
-                        <div className='text-sm flex items-center gap-2'>
-                            <Avatar className='h-6 w-6' color='secondary'
-                                    name={question.askerDisplayName?.charAt(0)}/>
-                            <Link href={`/profiles/${question.askerId}`} className='text-secondary'>
-                                {question.askerDisplayName}
-                            </Link>
-                            <span>asked {question.createdAt}</span>
-                        </div>
+                <div className='flex flex-col items-center gap-1 px-3 py-2 rounded-md bg-default-100'>
+                    <span className='font-semibold text-default-700'>{question.viewCount}</span>
+                    <span className='text-xs text-default-500'>{question.viewCount === 1 ? 'view' : 'views'}</span>
+                </div>
+            </div>
+            
+            <div className='flex flex-1 flex-col gap-3'>
+                <Link
+                    href={`/questions/${question.id}`}
+                    className='text-lg text-primary font-semibold hover:text-primary-600 transition-colors first-letter:uppercase line-clamp-2'
+                >
+                    {question.title}
+                </Link>
+
+                <div
+                    className='line-clamp-2 text-default-600 text-sm leading-relaxed'
+                    dangerouslySetInnerHTML={{__html: question.content}}
+                />
+
+                <div className='flex justify-between items-center pt-2'>
+                    {/* Tags */}
+                    <div className='flex gap-2 flex-wrap'>
+                        {question.tagSlugs.map(tag => (
+                            <Chip
+                                key={tag}
+                                variant='flat'
+                                size='sm'
+                                as={Link}
+                                href={`/questions?tag=${tag}`}
+                                className='hover:bg-default-200 transition-colors'
+                            >
+                                {tag}
+                            </Chip>
+                        ))}
+                    </div>
+
+                    <div className='text-xs flex items-center gap-2 text-default-500 ml-4'>
+                        <Avatar
+                            className='h-6 w-6'
+                            color='secondary'
+                            name={question.askerDisplayName?.charAt(0)}
+                        />
+                        <Link
+                            href={`/profiles/${question.askerId}`}
+                            className='text-secondary font-medium hover:underline'
+                        >
+                            {question.askerDisplayName}
+                        </Link>
+                        <span>asked {question.createdAt}</span>
                     </div>
                 </div>
-
             </div>
         </div>
     );
