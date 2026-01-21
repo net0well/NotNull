@@ -13,3 +13,13 @@ import {Question} from "@/lib/types";
     
     return response.json();
 }
+
+ export async function getQuestionById(id: string): Promise<Question> {
+    const url = `http://localhost:7001/questions/${id}`;
+
+    const response = await fetch(url);
+
+    if(!response.ok) throw new Error('Failed to get questions');
+
+    return response.json();
+ }
