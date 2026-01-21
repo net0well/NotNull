@@ -20,40 +20,43 @@ export default function TopNav() {
                     </Link>
 
                     <nav className='hidden md:flex items-center gap-1'>
-                        <Link
-                            href='/'
-                            className='px-4 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors'
-                        >
-                            Questions
-                        </Link>
-                        <Link
-                            href='/'
-                            className='px-4 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors'
-                        >
-                            Tags
-                        </Link>
-                        <Link
-                            href='/'
-                            className='px-4 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors'
-                        >
-                            Users
-                        </Link>
+                        <nav className='hidden md:flex items-center gap-1'>
+                            <Link
+                                href='/'
+                                className='px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg transition-colors'
+                            >
+                                Questions
+                            </Link>
+                            <Link
+                                href='/'
+                                className='px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg transition-colors'
+                            >
+                                Tags
+                            </Link>
+                            <Link
+                                href='/'
+                                className='px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg transition-colors'
+                            >
+                                Users
+                            </Link>
+                        </nav>
+
+                        <div className='ml-4 w-200'>
+                            <Input
+                                startContent={<MagnifyingGlassIcon className='size-5 text-gray-400 dark:text-gray-500'/>}
+                                classNames={{
+                                    input: "text-sm",
+                                    inputWrapper: "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 focus-within:bg-white dark:focus-within:bg-gray-900 group-data-[focus=true]:bg-white dark:group-data-[focus=true]:bg-gray-900 transition-colors"
+                                }}
+                                type='search'
+                                placeholder='Search questions, tags, or users...'
+                                radius="lg"
+                            />
+                        </div>
+                        
                     </nav>
                 </div>
-
-                <div className='hidden lg:flex flex-1 max-w-md ml-0 mr-4'>
-                <Input
-                        startContent={<MagnifyingGlassIcon className='size-5 text-gray-400'/>}
-                        classNames={{
-                            base: "w-full",
-                            input: "text-sm",
-                            inputWrapper: "bg-gray-50 border-gray-200 hover:bg-gray-100 focus-within:bg-white group-data-[focus=true]:bg-white transition-colors"
-                        }}
-                        type='search'
-                        placeholder='Search questions, tags, or users...'
-                        radius="lg"
-                    />
-                </div>
+                
                 
                 <div className='flex items-center gap-3'>
                     
@@ -75,20 +78,6 @@ export default function TopNav() {
                         </Button>
                     </div>
                 </div>
-            </div>
-            
-            <div className='lg:hidden px-6 pb-3'>
-                <Input
-                    startContent={<MagnifyingGlassIcon className='size-5 text-gray-400'/>}
-                    classNames={{
-                        input: "text-sm",
-                        inputWrapper: "bg-gray-50 border-gray-200"
-                    }}
-                    type='search'
-                    placeholder='Search...'
-                    radius="lg"
-                    size="sm"
-                />
             </div>
         </header>
     );
