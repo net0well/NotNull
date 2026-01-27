@@ -1,25 +1,14 @@
 ﻿ 'use server';
 
 import {Question} from "@/lib/types";
+import {fetchClient} from "@/lib/fetchClient";
 
- export async function getQuestions(tag?: string): Promise<Question[]> {
-    let url = 'http://localhost:7001/questions';
-    
-    if (tag) url += `?tag=${tag}`;
-    
-    const response = await fetch(url);
-    
-    if(!response.ok) throw new Error('Failed to get questions');
-    
-    return response.json();
-}
+ export async function getQuestions(tag?: string) {
+     let url = '/questions';
+     if (tag) url += '?tag=' + tag;
+     return fetchClient<Question[]>(url, 'GET')
+ }
 
- export async function getQuestionById(id: string): Promise<Question> {
-    const url = `http://localhost:7001/questions/${id}`;
-
-    const response = await fetch(url);
-
-    if(!response.ok) throw new Error('Failed to get questions');
-
-    return response.json();
+ export async function getQuestionById(id: string) {
+     return fetchClient<Question>(`/questions/${id}`, 'GET')
  }
