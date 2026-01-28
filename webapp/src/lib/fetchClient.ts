@@ -1,4 +1,6 @@
-﻿export async function fetchClient<T>(
+﻿import {notFound} from "next/navigation";
+
+export async function fetchClient<T>(
     url: string,
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     options: Omit<RequestInit, 'body'> & { body?: unknown } = {}
@@ -18,17 +20,46 @@
         ...(body ? { body: JSON.stringify(body) } : {}),
         ...rest,
     });
-    
-    if(!response.ok){
-        const contentType = response.headers.get('Content-Type');
-        
-        const isJson = contentType?.includes('application/json') || 
-                                            contentType?.includes('application/problema+json');
-        
-        const errorData = isJson ? await response.json() : await response.text();
-        
-        throw new Error(`${errorData || 'An error occurred'}`);
+
+    const contentType  = response.headers.get('Content-Type');
+    const isJson = contentType?.includes('application/json')
+        || contentType?.includes('application/problem+json');
+
+    const parsed = isJson ? await response.json() : await response.text();
+
+    if (!response.ok) {
+        if (response.status === 404) return notFound();
+        if (response.status === 500) throw new Error("Server error. Please try again later.");
+
+        let message = '';
+
+        if (typeof parsed === 'string') {
+            message = parsed;
+        } else if (parsed?.message) {
+            message = parsed.message;
+        }
+
+        if (!message) {
+            message = response.statusText || getFallbackMessage(response.status);
+        }
+
+        return { data: null, error: {message, status: response.status}};
     }
-    
-    return response.json();
+
+    return { data: parsed as T };
+}
+
+function getFallbackMessage(status: number): string {
+    switch (status) {
+        case 400:
+            return 'Bad request. Please check your input.';
+        case 401:
+            return 'You must be logged in.';
+        case 403:
+            return 'You do not have permission to access this resource.';
+        case 500:
+            return 'Server error. Please try again later.';
+        default:
+            return 'An unexpected error occurred.';
+    }
 }
