@@ -1,4 +1,6 @@
 ﻿import {getTags} from "@/lib/actions/tag-actions";
+import TagCard from "@/app/tags/TagCard";
+import TagHeader from "@/app/tags/TagHeader";
 
 export default async function Page() {
     const {data: tags, error} = await  getTags();
@@ -6,14 +8,14 @@ export default async function Page() {
     if(error) throw error;
     
     return (
-        <div>
-            <ul>
+        <div className='w-full px-6'>
+            <TagHeader />
+            
+            <div className='grid grid-cols-3 gap-4'>
                 {tags?.map((tag) => (
-                    <li key={tag.id}>
-                        {tag.name}
-                    </li>
+                    <TagCard tag={tag} key={tag.id}/>
                 ))}
-            </ul>
+            </div>
             
         </div>
     );
