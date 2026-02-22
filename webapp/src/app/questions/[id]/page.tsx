@@ -14,6 +14,8 @@ export default async function QuestionDetailed({ params }: {params: Params}) {
 
     if(error) return error;
     if (!question) return notFound();
+    
+    
 
     return (
         <div className='w-full'>

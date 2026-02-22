@@ -17,6 +17,16 @@ builder.Services.AddOpenApi();
 
 builder.AddServiceDefaults();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 await builder.UseWolverineWithRabbitMqAsync(opts =>
 {
     opts.ListenToRabbitQueue("questions.search", cfg =>
@@ -47,6 +57,7 @@ builder.Services.AddTypesenseClient(config =>
     };
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +67,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
+app.UseCors();
 
 app.MapDefaultEndpoints();
 
