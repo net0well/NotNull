@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CommandLineIcon, MagnifyingGlassIcon, BellIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Badge } from "@heroui/react";
 import ThemeToggle from "@/components/nav/ThemeToggle";
+import SearchInput from "@/components/nav/SearchInput";
 
 export default function TopNav() {
     return (
@@ -41,18 +42,7 @@ export default function TopNav() {
                             </Link>
                         </nav>
 
-                        <div className='ml-4 w-200'>
-                            <Input
-                                startContent={<MagnifyingGlassIcon className='size-5 text-gray-400 dark:text-gray-500'/>}
-                                classNames={{
-                                    input: "text-sm",
-                                    inputWrapper: "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 focus-within:bg-white dark:focus-within:bg-gray-900 group-data-[focus=true]:bg-white dark:group-data-[focus=true]:bg-gray-900 transition-colors"
-                                }}
-                                type='search'
-                                placeholder='Search questions, tags, or users...'
-                                radius="lg"
-                            />
-                        </div>
+                        <SearchInput/>
                         
                     </nav>
                 </div>

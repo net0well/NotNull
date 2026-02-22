@@ -23,8 +23,9 @@ var typesenseApiKey = builder.AddParameter("typesense-api-key", secret: true);
 var typesense = builder.AddContainer("typesense", "typesense/typesense", "29.0")
     .WithVolume("typesense-data", "/data")
     .WithEnvironment("TYPESENSE_DATA_DIR", "/data")
-    .WithEnvironment("TYPESENSE_ENABLE_CORS", "true")
     .WithEnvironment("TYPESENSE_API_KEY", typesenseApiKey)
+    .WithEnvironment("TYPESENSE_ENABLE_CORS", "true")
+    .WithEnvironment("TYPESENSE_CORS_ORIGINS", "http://localhost:3000")
     .WithHttpEndpoint(8108, 8108, name: "typesense");
 
 var typesenseContainer = typesense.GetEndpoint("typesense");
@@ -53,14 +54,13 @@ var searchService = builder.AddProject<Projects.SearchService>("search-svc")
 var yarp = builder.AddYarp("gateway")
     .WithReference(questionService)
     .WithReference(searchService)
+    .WithHostPort(8001)
     .WithConfiguration(yarpBuilder =>
     {
         yarpBuilder.AddRoute("/questions/{**catch-all}", questionService);
         yarpBuilder.AddRoute("/tags/{**catch-all}", questionService);
         yarpBuilder.AddRoute("/search/{**catch-all}", searchService);
     })
-    .WithEnvironment("ASPNETCORE_URLS", "http://*:8001")
-    .WithEndpoint(port: 8001, scheme: "http", targetPort: 8001, name: "gateway", isExternal: true)
     .WithEnvironment("VIRTUAL_HOST", "api.notnull.local")
     .WithEnvironment("VIRTUAL_PORT", "8001")
     .WaitFor(questionService)

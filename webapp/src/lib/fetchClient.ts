@@ -6,7 +6,7 @@ export async function fetchClient<T>(
     options: Omit<RequestInit, 'body'> & { body?: unknown } = {}
 ): Promise<{ data: T | null; error?: {message: string, status: number} }> {
     const { body, ...rest } = options;
-    const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     if (!apiUrl) throw new Error('Missing API URL');
 
     const headers: HeadersInit = {
