@@ -1,43 +1,49 @@
-﻿import {Button} from "@heroui/button";
-import {ArrowDownCircleIcon, ArrowUpCircleIcon} from "@heroicons/react/24/outline";
-import {CheckBadgeIcon} from "@heroicons/react/24/solid";
+﻿import { Button } from "@heroui/button";
+import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/24/outline";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 type Props = {
     accepted?: boolean;
 }
 
-export default function VotingButtons({accepted}: Props){
+export default function VotingButtons({ accepted }: Props) {
     return (
-        <div className='flex-shrink-0 flex flex-col gap-2 items-center justify-start'>
+        <div className="flex-shrink-0 flex flex-col items-center gap-1 justify-start">
             <Button
                 isIconOnly
-                variant='light'
-                size='lg'
-                className='text-purple-600 hover:text-purple-600 dark:hover:text-purple-600 hover:text-purple-600 dark:hover:text-purple-600 transition-all duration-200 hover:scale-110'
+                variant="light"
+                size="lg"
+                className="text-default-400 hover:text-purple-600 dark:hover:text-purple-400 hover:scale-110 transition-all duration-150"
             >
-                <ArrowUpCircleIcon className='w-10 h-10 stroke-[1.5]' />
+                <ArrowUpCircleIcon className="w-9 h-9 stroke-[1.5]" />
             </Button>
-            <div className='px-3 py-1.5 rounded-lg bg-default-100 dark:bg-default-800/50 min-w-[3rem] flex items-center justify-center'>
-                <span className='text-2xl font-bold text-default-900 dark:text-default-100'>0</span>
+
+            <div className="
+                px-3 py-1.5 rounded-lg min-w-[2.75rem]
+                bg-default-100 dark:bg-white/5
+                flex items-center justify-center
+            ">
+                <span className="text-xl font-bold text-default-800 dark:text-default-200">0</span>
             </div>
+
             <Button
                 isIconOnly
-                variant='light'
-                size='lg'
-                className='text-default-500 hover:text-purple-600 dark:hover:text-purple-600 hover:text-purple-600 dark:hover:text-purple-600 transition-all duration-200 hover:scale-110'
+                variant="light"
+                size="lg"
+                className="text-default-400 hover:text-purple-600 dark:hover:text-purple-400 hover:scale-110 transition-all duration-150"
             >
-                <ArrowDownCircleIcon className='w-10 h-10 stroke-[1.5]' />
+                <ArrowDownCircleIcon className="w-9 h-9 stroke-[1.5]" />
             </Button>
+
             {accepted && (
-                <div className='mt-2 animate-in fade-in zoom-in duration-500'>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='lg'
-                        className='bg-success-100 dark:bg-success-900/30 hover:bg-success-200 dark:hover:bg-success-900/50 transition-all'
-                    >
-                        <CheckBadgeIcon className='w-10 h-10 text-success-600 dark:text-success-400 drop-shadow-lg'/>
-                    </Button>
+                <div className="mt-1 animate-in fade-in zoom-in duration-300">
+                    <div className="
+                        p-2 rounded-xl
+                        bg-emerald-50 dark:bg-emerald-950/30
+                        border border-emerald-200 dark:border-emerald-800
+                    ">
+                        <CheckBadgeIcon className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+                    </div>
                 </div>
             )}
         </div>
