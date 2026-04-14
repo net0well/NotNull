@@ -1,13 +1,16 @@
-﻿"use client";
-
-import Link from "next/link";
+﻿import Link from "next/link";
 import { CommandLineIcon, MagnifyingGlassIcon, BellIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Badge } from "@heroui/react";
 import ThemeToggle from "@/components/nav/ThemeToggle";
 import SearchInput from "@/components/nav/SearchInput";
 import LoginButton from "./LoginButton";
+import {getCurrentUser} from "@/lib/actions/auth-actions";
+import SignUpButton from "@/components/nav/SignUpButton";
 
-export default function TopNav() {
+export default async function TopNav() {
+    
+    const user = await getCurrentUser();
+    
     return (
         <header className='w-full fixed top-0 z-50 border-b bg-white/80 dark:bg-black backdrop-blur-md shadow-sm'>
             <div className='flex items-center justify-between px-6 py-3 mx-auto max-w-[1920px]'>
@@ -54,13 +57,14 @@ export default function TopNav() {
                     <ThemeToggle/>
                     
                     <div className='flex gap-2'>
-                        <LoginButton/>
-                        <Button
-                            className='bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium shadow-md hover:shadow-lg transition-shadow'
-                            size="md"
-                        >
-                            Sign Up
-                        </Button>
+                        {user ? (
+                            <div>{user.name}</div>
+                        ) : (
+                            <>
+                                <LoginButton/>
+                                <SignUpButton />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
