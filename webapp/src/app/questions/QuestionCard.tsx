@@ -1,86 +1,117 @@
 ﻿'use client'
 
-import {Question} from "@/lib/types";
+import { Question } from "@/lib/types";
 import Link from "next/link";
-import {Chip} from "@heroui/chip";
-import {Avatar} from "@heroui/avatar";
+import { Chip } from "@heroui/chip";
+import { Avatar } from "@heroui/avatar";
 import clsx from "clsx";
-import {CheckIcon} from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/outline";
 import { timeAgo } from "@/lib/util";
 
 type Props = {
     question: Question;
 }
 
-export default function QuestionCard({question}: Props) {
+export default function QuestionCard({ question }: Props) {
     return (
-        <div className='flex gap-6 px-6 py-5 w-full hover:bg-default-50 dark:hover:bg-default-200/20 transition-colors rounded-lg border-b border-default-200'>            <div className='flex flex-col items-end gap-3 text-sm min-w-[6rem]'>
-                <div className='flex flex-col items-center gap-1 px-3 py-2 rounded-md bg-default-100'>
-                    <span className='font-semibold text-default-700'>{question.votes}</span>
-                    <span className='text-xs text-default-500'>{question.votes === 1 ? 'vote' : 'votes'}</span>
+        <div className="
+            flex gap-5 px-6 py-5 w-full
+            border-b border-default-200 dark:border-white/10
+            hover:bg-purple-50/30 dark:hover:bg-purple-950/10
+            transition-colors duration-150
+        ">
+            {/* Stats column */}
+            <div className="flex flex-col items-center gap-2 text-sm min-w-[4.5rem]">
+
+                {/* Votes */}
+                <div className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-lg bg-default-100 dark:bg-white/5 w-full text-center">
+                    <span className="font-semibold text-default-800 dark:text-default-200 text-base leading-none">
+                        {question.votes}
+                    </span>
+                    <span className="text-[11px] text-default-400 mt-0.5">
+                        {question.votes === 1 ? 'vote' : 'votes'}
+                    </span>
                 </div>
 
-                <div
-                    className={clsx('flex flex-col items-center gap-1 px-3 py-2 rounded-md transition-all', {
-                        'bg-success-50 border border-success-200': question.answerCount > 0 && !question.hasAcceptedAnswer,
-                        'bg-success-500 text-white shadow-md': question.hasAcceptedAnswer,
-                        'bg-default-100': question.answerCount === 0
-                    })}
-                >
-                    <div className='flex items-center gap-1'>
+                {/* Answers */}
+                <div className={clsx(
+                    'flex flex-col items-center gap-0.5 px-3 py-2 rounded-lg w-full text-center transition-all',
+                    {
+                        'bg-emerald-500 text-white':                          question.hasAcceptedAnswer,
+                        'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-700 text-emerald-700 dark:text-emerald-400': question.answerCount > 0 && !question.hasAcceptedAnswer,
+                        'bg-default-100 dark:bg-white/5 text-default-500':   question.answerCount === 0,
+                    }
+                )}>
+                    <div className="flex items-center gap-0.5 leading-none">
                         {question.hasAcceptedAnswer && (
-                            <CheckIcon className="h-4 w-4" strokeWidth={3}/>
+                            <CheckIcon className="h-3.5 w-3.5" strokeWidth={3} />
                         )}
-                        <span className='font-semibold'>{question.answerCount}</span>
+                        <span className="font-semibold text-base">{question.answerCount}</span>
                     </div>
-                    <span className='text-xs'>{question.answerCount === 1 ? 'answer' : 'answers'}</span>
+                    <span className="text-[11px] mt-0.5">
+                        {question.answerCount === 1 ? 'answer' : 'answers'}
+                    </span>
                 </div>
 
-                <div className='flex flex-col items-center gap-1 px-3 py-2 rounded-md bg-default-100'>
-                    <span className='font-semibold text-default-700'>{question.viewCount}</span>
-                    <span className='text-xs text-default-500'>{question.viewCount === 1 ? 'view' : 'views'}</span>
+                {/* Views */}
+                <div className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-lg bg-default-100 dark:bg-white/5 w-full text-center">
+                    <span className="font-semibold text-default-800 dark:text-default-200 text-base leading-none">
+                        {question.viewCount}
+                    </span>
+                    <span className="text-[11px] text-default-400 mt-0.5">
+                        {question.viewCount === 1 ? 'view' : 'views'}
+                    </span>
                 </div>
             </div>
-            
-            <div className='flex flex-1 flex-col gap-3'>
+
+            {/* Main content */}
+            <div className="flex flex-1 flex-col gap-2.5 min-w-0">
                 <Link
                     href={`/questions/${question.id}`}
-                    className='text-lg text-primary font-semibold hover:text-primary-600 transition-colors first-letter:uppercase line-clamp-2'
+                    className="
+                        text-base font-semibold leading-snug
+                        text-purple-700 dark:text-purple-300
+                        hover:text-purple-900 dark:hover:text-purple-100
+                        transition-colors first-letter:uppercase line-clamp-2
+                    "
                 >
                     {question.title}
                 </Link>
 
                 <div
-                    className='line-clamp-2 text-default-600 text-sm leading-relaxed'
-                    dangerouslySetInnerHTML={{__html: question.content}}
+                    className="line-clamp-2 text-default-500 dark:text-default-400 text-sm leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: question.content }}
                 />
 
-                <div className='flex justify-between items-center pt-2'>
-                    {/* Tags */}
-                    <div className='flex gap-2 flex-wrap'>
+                {/* Footer: tags + author */}
+                <div className="flex justify-between items-center gap-4 pt-1">
+                    <div className="flex gap-1.5 flex-wrap">
                         {question.tagSlugs.map(tag => (
                             <Chip
                                 key={tag}
-                                variant='flat'
-                                size='sm'
+                                variant="flat"
+                                size="sm"
                                 as={Link}
                                 href={`/questions?tag=${tag}`}
-                                className='hover:bg-default-200 transition-colors'
+                                classNames={{
+                                    base: "bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors cursor-pointer",
+                                    content: "text-purple-700 dark:text-purple-300 text-xs font-medium"
+                                }}
                             >
                                 {tag}
                             </Chip>
                         ))}
                     </div>
 
-                    <div className='text-xs flex items-center gap-2 text-default-500 ml-4'>
+                    <div className="flex items-center gap-2 text-xs text-default-400 flex-shrink-0">
                         <Avatar
-                            className='h-6 w-6'
-                            color='secondary'
+                            className="h-5 w-5 text-[10px]"
+                            color="secondary"
                             name={question.askerDisplayName?.charAt(0)}
                         />
                         <Link
                             href={`/profiles/${question.askerId}`}
-                            className='text-secondary font-medium hover:underline'
+                            className="text-purple-600 dark:text-purple-400 font-medium hover:underline"
                         >
                             {question.askerDisplayName}
                         </Link>

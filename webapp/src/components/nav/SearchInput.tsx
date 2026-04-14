@@ -19,10 +19,8 @@ export default function SearchInput() {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
         if (!query) {
-            timeoutRef.current = setTimeout(() => {
-                setResults(null);
-                setShowDropdown(false);
-            }, 0);
+            setResults(null);
+            setShowDropdown(false);
             return;
         }
 
@@ -60,35 +58,65 @@ export default function SearchInput() {
             <Input
                 startContent={
                     loading
-                        ? <div className="size-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                        : <MagnifyingGlassIcon className="size-5 text-default-400" />
+                        ? <div className="size-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
+                        : <MagnifyingGlassIcon className="size-4 text-default-400" />
                 }
                 type="search"
                 placeholder="Search questions..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => results && setShowDropdown(true)}
+                classNames={{
+                    inputWrapper: [
+                        'border border-default-200 dark:border-white/10',
+                        'bg-gray-50 dark:bg-white/5',
+                        'hover:border-purple-300 dark:hover:border-purple-700',
+                        'group-data-[focus=true]:border-purple-500 dark:group-data-[focus=true]:border-purple-400',
+                        'shadow-none',
+                        'transition-colors duration-150',
+                    ].join(' '),
+                }}
             />
 
             {showDropdown && results && (
-                <div className="absolute top-[calc(100%+6px)] left-0 z-50 w-full bg-background dark:bg-default-50 shadow-xl border border-default-200 rounded-xl overflow-hidden">
+                <div className="
+                    absolute top-[calc(100%+6px)] left-0 z-50 w-full
+                    bg-white dark:bg-gray-900
+                    border border-default-200 dark:border-white/10
+                    rounded-xl overflow-hidden
+                    shadow-lg shadow-black/5 dark:shadow-black/30
+                ">
                     {results.length === 0 ? (
-                        <div className="px-4 py-6 text-center text-sm text-default-400">
-                            No results for{' '}
-                            <span className="font-semibold text-default-600">
-                                &ldquo;{query}&rdquo;
-                            </span>
+                        <div className="px-4 py-8 text-center">
+                            <MagnifyingGlassIcon className="size-8 text-default-300 mx-auto mb-2" />
+                            <p className="text-sm text-default-400">
+                                No results for{' '}
+                                <span className="font-semibold text-default-600 dark:text-default-300">
+                                    &ldquo;{query}&rdquo;
+                                </span>
+                            </p>
                         </div>
                     ) : (
                         <>
-                            <div className="px-3 py-2 text-xs font-semibold text-default-400 border-b border-default-100">
-                                {results.length} result{results.length !== 1 ? 's' : ''} found
+                            {/* Header do dropdown */}
+                            <div className="
+                                flex items-center justify-between
+                                px-3 py-2
+                                border-b border-default-100 dark:border-white/5
+                            ">
+                                <span className="text-xs font-medium text-default-400">
+                                    {results.length} result{results.length !== 1 ? 's' : ''} found
+                                </span>
+                                <span className="text-xs text-default-300 dark:text-default-500">
+                                    ↵ to select
+                                </span>
                             </div>
+
                             <Listbox
                                 aria-label="Search results"
                                 onAction={onAction}
                                 items={results}
-                                className="max-h-[420px] overflow-y-auto p-1"
+                                className="max-h-[400px] overflow-y-auto p-1.5"
                             >
                                 {(question) => (
                                     <ListboxItem
@@ -96,22 +124,34 @@ export default function SearchInput() {
                                         textValue={question.title}
                                         href={`/questions/${question.id}`}
                                         key={question.id}
-                                        className="rounded-lg px-2 py-2 my-0.5 hover:bg-default-100 transition-colors overflow-hidden"
+                                        className="
+                                            rounded-lg px-2 py-2 my-0.5
+                                            hover:bg-purple-50 dark:hover:bg-purple-950/30
+                                            data-[hover=true]:bg-purple-50 dark:data-[hover=true]:bg-purple-950/30
+                                            transition-colors overflow-hidden
+                                        "
                                         startContent={
-                                            <div
-                                                className={`flex flex-col h-12 min-w-12 justify-center items-center border rounded-lg text-center flex-shrink-0
-                                                    ${question.answerCount > 0
-                                                    ? 'border-success text-success bg-success/10'
-                                                    : 'border-default-300 text-default-400'
-                                                }`}
-                                            >
-                                                <span className="text-sm font-bold leading-none">{question.answerCount}</span>
-                                                <span className="text-[10px] mt-0.5 leading-none">answers</span>
+                                            <div className={`
+                                                flex flex-col h-11 min-w-11 justify-center items-center
+                                                border rounded-lg text-center flex-shrink-0
+                                                ${question.answerCount > 0
+                                                ? 'border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40'
+                                                : 'border-default-200 dark:border-white/10 text-default-400 bg-default-50 dark:bg-white/5'
+                                            }
+                                            `}>
+                                                <span className="text-sm font-bold leading-none">
+                                                    {question.answerCount}
+                                                </span>
+                                                <span className="text-[10px] mt-0.5 leading-none opacity-70">
+                                                    ans
+                                                </span>
                                             </div>
                                         }
                                     >
                                         <div className="flex flex-col gap-0.5 min-w-0 overflow-hidden w-full">
-                                            <span className="font-semibold text-sm truncate block">{question.title}</span>
+                                            <span className="font-medium text-sm truncate block text-default-700 dark:text-default-200">
+                                                {question.title}
+                                            </span>
                                             <span className="text-xs text-default-400 line-clamp-1 break-words">
                                                 {question.content}
                                             </span>
