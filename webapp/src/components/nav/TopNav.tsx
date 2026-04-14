@@ -5,6 +5,7 @@ import { CommandLineIcon, MagnifyingGlassIcon, BellIcon, UserCircleIcon } from "
 import { Button, Input, Badge } from "@heroui/react";
 import ThemeToggle from "@/components/nav/ThemeToggle";
 import SearchInput from "@/components/nav/SearchInput";
+import LoginButton from "./LoginButton";
 
 export default function TopNav() {
     return (
@@ -53,13 +54,7 @@ export default function TopNav() {
                     <ThemeToggle/>
                     
                     <div className='flex gap-2'>
-                        <Button
-                            variant='light'
-                            className='text-purple-600 font-medium hover:bg-purple-50'
-                            size="md"
-                        >
-                            Login
-                        </Button>
+                        <LoginButton/>
                         <Button
                             className='bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium shadow-md hover:shadow-lg transition-shadow'
                             size="md"
